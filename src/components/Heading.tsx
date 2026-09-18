@@ -1,9 +1,9 @@
 import styles from './Heading.module.css';
-export function Heading() {
+export function Heading(props) {
   const classes = `${styles.heading} ${styles.cyan}`;
   return (
     <>
-      <h1 className={classes}>Ola mundo!</h1>
+      <h1 className={classes}>{props.children}</h1>
     </>
   );
 }

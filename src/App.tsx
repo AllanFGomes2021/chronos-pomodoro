@@ -6,7 +6,9 @@ import './styles/global.css';
 export function App() {
   return (
     <>
-      <Heading />
+      <Heading attr='123' attr2='234'>
+        OLA MUNDO NOVO
+      </Heading>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
         quasi reiciendis fuga voluptas. Dolore, porro tempora. Sed, tempora
