@@ -1,14 +1,19 @@
+import { Logo } from './components/Logo';
+import { Container } from './components/Container';
+import { Menu } from './components/Menu';
+
 import './styles/theme.css';
 import './styles/global.css';
-
-import { Heading } from './components/Heading';
-import { Container } from './components/Container';
 
 export function App() {
   return (
     <>
       <Container>
-        <Heading>Testando meu componente</Heading>
+        <Logo />
+      </Container>
+
+      <Container>
+        <Menu />
       </Container>
     </>
   );

@@ -8,7 +8,7 @@ export function Heading(props: HeadingProps) {
   const { children } = props;
   return (
     <>
-      <h1 className={`${styles.heading}`}>{children}</h1>
+      <div className={`${styles.heading}`}>{children}</div>
     </>
   );
 }
