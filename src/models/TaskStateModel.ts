@@ -1,14 +1,14 @@
 import type { TaskModel } from './TaskModel';
 
 export type TaskStateModel = {
-  tasks: TaskModel[];
-  secondsRemaining: number;
-  formattedSecondsRemaining: string;
-  activeTask: TaskModel | null;
-  currentCycle: number; // 1 a 8
+  tasks: TaskModel[]; // historico, mainform
+  secondsRemaining: number; // home, historico, mainform, countdown, button
+  formattedSecondsRemaining: string; // titulo, countdown
+  activeTask: TaskModel | null; // historico, mainform, countdown, button
+  currentCycle: number; // 1 a 8 home
   config: {
-    workTime: number;
-    shortBreakTime: number;
-    longBreakTime: number;
+    workTime: number; //mainform
+    shortBreakTime: number; //mainform
+    longBreakTime: number; //mainform
   };
 };
