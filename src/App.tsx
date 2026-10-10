@@ -1,51 +1,29 @@
 import './styles/theme.css';
 import './styles/global.css';
 
-import { Container } from './components/Container';
-import { Logo } from './components/Logo';
-import { Menu } from './components/Menu';
-import { CountDown } from './components/CountDown';
-import { DefaultInput } from './components/DefaultInput';
-import { Cycles } from './components/Cycles';
+import { Home } from './pages/Home';
+import { useState } from 'react';
+import type { TaskStateModel } from './models/TaskStateModel';
+
+const initialState: TaskStateModel = {
+  tasks: [],
+  secondsRemaining: 0,
+  formattedSecondsRemaining: '00:00',
+  activeTask: null,
+  currentCycle: 0,
+  config: {
+    workTime: 25,
+    shortBreakTime: 5,
+    longBreakTime: 15,
+  },
+};
 
 export function App() {
+  const [state, setState] = useState(initialState);
+
   return (
     <>
-      <Container>
-        <Logo />
-      </Container>
-
-      <Container>
-        <Menu />
-      </Container>
-
-      <Container>
-        <CountDown />
-      </Container>
-
-      <Container>
-        <form className='form' action=''>
-          <div className='formRow'>
-            <DefaultInput id='meuInput' type='text' />
-          </div>
-
-          <div className='formRow'>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
-
-          <div className='formRow'>
-            <Cycles />
-          </div>
-
-          <div className='formRow'>
-            <button>Enviar</button>
-          </div>
-        </form>
-      </Container>
-
-      <Container>
-        <section>FOOTER</section>
-      </Container>
+      return <Home state={state} setState={setState} />;
     </>
   );
 }

@@ -8,10 +8,6 @@ import {
   SunIcon,
 } from 'lucide-react';
 
-//type MenuProps = {
-//  children: React.ReactNode;
-//};
-
 type availableThemes = 'dark' | 'light';
 
 const nextThemeIcon = {
