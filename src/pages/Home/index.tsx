@@ -3,20 +3,20 @@ import { MainTemplate } from '../../templatesGerais/MainTemplate';
 import { Container } from '../../components/Container';
 import { CountDown } from '../../components/CountDown';
 import { MainForm } from '../../components/MainForm';
-import type { TypeProps } from '../../models/TypeProps';
+//import type { TypeProps } from '../../models/TypeProps';
 
-type HomeProps = {} & TypeProps;
+//type HomeProps = {} & TypeProps;
 
-export function Home(props: HomeProps) {
+export function Home() {
   return (
     <>
       <MainTemplate>
         <Container>
-          <CountDown {...props} />
+          <CountDown />
         </Container>
 
         <Container>
-          <MainForm {...props} />
+          <MainForm />
         </Container>
       </MainTemplate>
     </>

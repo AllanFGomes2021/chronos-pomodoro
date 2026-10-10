@@ -1,12 +1,13 @@
 import styles from './styles.module.css';
-//import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
+
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
 
 export function Cycles() {
-  //const { state } = useTaskContext();
+  const { state } = useTaskContext();
 
-  const cycleStep = Array.from({ length: 8 /*state.currentCycle*/ });
+  const cycleStep = Array.from({ length: state.currentCycle });
 
   const cycleDescriptionMap = {
     workTime: 'foco',
