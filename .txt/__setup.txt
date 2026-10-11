@@ -2,6 +2,13 @@ https://nodejs.org/en/download
 https://code.visualstudio.com/download
 https://git-scm.com/download
 
+
+Habilitando ENUM NO TS
+================================
+npm i eslint-plugin-erasable-syntax-only -D 
+ou diretamente no arquivo tsconfig.app.json
+colocar  "erasableSyntaxOnly": false,
+
 React Developer Tools
 ======================
 https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?pli=1
@@ -56,7 +63,6 @@ C:\Users\Allan_Rita\.ssh\id_ed25519
 cat C:\Users\Allan_Rita\.ssh\id_ed25519.pub
 
 Fragmento do React
-----------------------
 <fragment></fragment>
 <></>
 

@@ -1,0 +1,22 @@
+{
+  "short_name": "Controle",
+  "name": "Chronos Pomodoro",
+  "description": "Um exemplo prático de como configurar um Web App Manifest.",
+  "icons": [
+    {
+      "src": "public/img/favicon/favicon.svg",
+      "type": "public/img/favicon/svg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "public/img/favicon/favicon.svg",
+      "type": "public/img/favicon/svg",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.html?launcher=true",
+  "background_color": "#FFFFFF",
+  "theme_color": "#007BFF",
+  "display": "standalone",
+  "orientation": "portrait"
+}

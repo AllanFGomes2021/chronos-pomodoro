@@ -4,14 +4,15 @@ import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 import type { TaskModel } from '../../models/TaskModel';
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
 
-import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
-import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
 
 import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 import { Cycles } from '../Cycles';
 import { DefaultButton } from '../DefaultButton';
 import { DefaultInput } from '../DefaultInput';
+import { Tips } from '../Tips';
+import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
+import { showMessage } from '../adapters/showMessage';
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -23,12 +24,10 @@ export function MainForm() {
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
-
-    const nextCycle = getNextCycle(state.currentCycle);
-    const nextCycleType = getNextCycleType(state.currentCycle);
+    const nextCycleType = getNextCycleType(state.currentCycle + 1);
 
     if (!taskName) {
-      alert('Digite o nome da tarefa');
+      showMessage.warn('Digite o nome da tarefa');
       return;
     }
 
@@ -43,12 +42,44 @@ export function MainForm() {
     };
 
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
+
+    const worker = TimerWorkerManager.getInstance();
+    /* 
+    const worker = new Worker(
+      new URL('../../workers/timerWorker.ts', import.meta.url),
+    );
+
+    worker.postMessage('FAVOR'); // Sim, posso fazer um favor
+    worker.postMessage('FALA_OI'); // OK: OI!
+    worker.postMessage('BLALBLA'); // Não entendi!
+    worker.postMessage('FECHAR'); // Tá bom, vou fechar
+
+    worker.onmessage = function (event) {
+      console.log('PRINCIPAL recebeu:', event.data);
+    };
+
+    console.log('0');
+    console.log('1');
+*/
+    //worker.postMessage('FAVOR'); // Sim, posso fazer um favor
+    //worker.postMessage('FALA_OI'); // OK: OI!
+    //worker.postMessage('BLALBLA'); // Não entendi!
+    //worker.postMessage('FECHAR'); // Tá bom, vou fechar
+    //console.log('2');
+    //worker.onmessage(event => {
+    //  console.log('PRINCIPAL recebeu:', event.data);
+    //});
+
+    showMessage.success('Tarefa iniciada');
   }
 
   function handleInterruptTask(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     e.preventDefault();
+
+    showMessage.dismiss();
+    showMessage.error('Tarefa interrompida!');
 
     dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
@@ -67,7 +98,7 @@ export function MainForm() {
         </div>
 
         <div className='formRow'>
-          <p>Próximo intervalo é de {state.config.workTime}min</p>
+          <Tips />
         </div>
 
         {state.currentCycle > 0 && (

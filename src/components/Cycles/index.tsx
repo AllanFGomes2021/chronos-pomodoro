@@ -11,7 +11,7 @@ export function Cycles() {
 
   const cycleDescriptionMap = {
     workTime: 'foco',
-    shortBreakTime: 'descanso curso',
+    shortBreakTime: 'descanso curto',
     longBreakTime: 'descanso longo',
   };
 
