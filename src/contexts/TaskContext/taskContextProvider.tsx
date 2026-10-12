@@ -4,6 +4,7 @@ import { initialTaskState } from './initialTaskState';
 import { taskReducer } from './taskReducer';
 import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
 import { TaskActionTypes } from './taskActions';
+import type { TaskStateModel } from '../../models/TaskStateModel';
 import { loadBeep } from '../../utils/loadBeep';
 
 type TaskContextProviderProps = {
@@ -12,10 +13,24 @@ type TaskContextProviderProps = {
 
 export function TaskContextProvider({ children }: TaskContextProviderProps) {
   //const [state, setState] = useState(initialTaskState);
-  const [state, dispatch] = useReducer(taskReducer, initialTaskState);
-  //const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null);
+  const [state, dispatch] = useReducer(taskReducer, initialTaskState, () => {
+    const storageState = localStorage.getItem('state');
 
-  /*
+    if (storageState === null) return initialTaskState;
+
+    const parsedStorageState = JSON.parse(storageState) as TaskStateModel;
+
+    return {
+      ...parsedStorageState,
+      activeTask: null,
+      secondsRemaining: 0,
+      formattedSecondsRemaining: '00:00',
+    };
+  });
+
+  const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null);
+
+  /* useState
   const [myState, dispatch] = useReducer(
     (state, action: ActionType) => {
       console.log(state, action);
@@ -59,31 +74,41 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
     console.log(countDownSeconds);
 
     if (countDownSeconds <= 0) {
-      //if (playBeepRef.current) {
-      // playBeepRef.current();
-      // playBeepRef.current = null;
-      //}
+      //todo verificar depois
+      //      if (playBeepRef.current) {
+      //        playBeepRef.current();
+      //        playBeepRef.current = null;
+      //      }
 
       dispatch({
         type: TaskActionTypes.COMPLETE_TASK,
       });
       worker.terminate();
+    } else {
+      dispatch({
+        type: TaskActionTypes.COUNT_DOWN,
+        payload: { secondsRemaining: countDownSeconds },
+      });
     }
   });
 
   useEffect(() => {
-    if (!state.activeTask) {
-      // if (state.activeTask && playBeepRef.current === null) {
-      //    playBeepRef.current = loadBeep();
-      // } else {
-      //    playBeepRef.current = null;
-      // }}, [state.activeTask]);
+    localStorage.setItem('state', JSON.stringify(state));
 
+    if (!state.activeTask) {
       worker.terminate();
     }
-
+    document.title = `${state.formattedSecondsRemaining} - Chronos Pomodoro`;
     worker.postMessage(state);
   }, [worker, state]);
+
+  useEffect(() => {
+    if (state.activeTask && playBeepRef.current === null) {
+      playBeepRef.current = loadBeep();
+    } else {
+      playBeepRef.current = null;
+    }
+  }, [state.activeTask]);
 
   return (
     <>
