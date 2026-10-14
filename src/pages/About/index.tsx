@@ -1,4 +1,6 @@
 //import styles from './styles.module.css';
+import { useEffect } from 'react';
+
 import { MainTemplate } from '../../templatesGerais/MainTemplate';
 import { Container } from '../../components/Container';
 import { GenericHtml } from '../../components/GenericHtml';
@@ -6,6 +8,10 @@ import { Heading } from '../../components/Heading';
 import { RouterLink } from '../../components/RouterLink';
 
 export function About() {
+  useEffect(() => {
+    document.title = 'Entenda a Técnica Pomodoro - Chronos Pomodoro';
+  }, []);
+
   return (
     <>
       <MainTemplate>

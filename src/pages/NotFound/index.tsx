@@ -1,10 +1,15 @@
 //import styles from './styles.module.css';
+import { useEffect } from 'react';
 import { MainTemplate } from '../../templatesGerais/MainTemplate';
 import { GenericHtml } from '../../components/GenericHtml';
 import { Heading } from '../../components/Heading';
 import { RouterLink } from '../../components/RouterLink';
 
 export function NotFound() {
+  useEffect(() => {
+    document.title = 'Página não encontrada - Chronos Pomodoro';
+  }, []);
+
   return (
     <>
       <MainTemplate>
